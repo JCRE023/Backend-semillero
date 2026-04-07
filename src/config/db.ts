@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 
 export const connectDB = async () => {
     try {
-        const url = process.env.MONGODB_URL!;
-        const connection = await mongoose.connect(url);
+        const { connection } = await mongoose.connect(process.env.MONGO_URI, {
+            dbName: 'mern_calendar'
+        });
+        const url = `${connection.host}:${connection.port}`;
 
-        console.log('MongoDB Conectado!...');
+        console.log(`MongoDB Conectado en el puerto: ${url} `);
 
     } catch (error) {
-        console.log(`Error: ${error.message}`);
-        process.exit(1);
+        console.log(error);
     }
 }
