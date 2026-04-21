@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 // The interface is the representation of our data, like a DTO:
 export interface IUser {
+    handle: string,
     name: string,
     email: string,
     password: string
@@ -9,6 +10,13 @@ export interface IUser {
 
 // The Schema is the representation of our collection or table in our data base:
 const userSchema = new Schema({
+    handle: {
+        type: String,
+        required: true,
+        trim: true,
+        lowercase: true,
+        unique: true
+    },
     name: {
         type: String,
         required: true,
@@ -18,7 +26,9 @@ const userSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true
+        unique: true,
+        lowercase: true,
+    
     },
     password: {
         type: String,
